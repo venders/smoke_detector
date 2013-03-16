@@ -1,4 +1,0 @@
-fubar
-=====
-
-Lumos Error Alerts
