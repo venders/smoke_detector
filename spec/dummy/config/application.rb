@@ -9,7 +9,7 @@ require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 Bundler.require
-require "fubar"
+require "watch_tower"
 
 module Dummy
   class Application < Rails::Application

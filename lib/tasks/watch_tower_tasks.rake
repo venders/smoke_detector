@@ -1,4 +1,4 @@
 # desc "Explaining what the task does"
-# task :fubar do
+# task :watch_tower do
 #   # Task goes here
 # end
