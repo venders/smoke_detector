@@ -1,11 +1,13 @@
+require 'watch_tower/engine'
+
 module WatchTower
 
   def self.alert(exception, options = {})
-    puts exception.message
+    Rollbar.report_exception(exception, options)
   end
 
   def self.message(message, options = {})
-    puts message
+    Rollbar.report_message(message, options)
   end
 
 end
