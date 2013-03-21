@@ -115,6 +115,11 @@ GEM
     rspec-expectations (2.11.3)
       diff-lcs (~> 1.1.3)
     rspec-mocks (2.11.3)
+    rspec-rails (2.11.4)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec (~> 2.11.0)
     ruby-debug-base19 (0.11.25)
       columnize (>= 0.3.1)
       linecache19 (>= 0.5.11)
@@ -149,6 +154,7 @@ DEPENDENCIES
   pry-rescue
   pry-stack_explorer
   rspec
+  rspec-rails
   ruby-debug19
   sqlite3
   watch_tower!

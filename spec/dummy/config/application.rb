@@ -10,6 +10,10 @@ require "sprockets/railtie"
 
 Bundler.require
 require "watch_tower"
+require 'pry'
+require 'pry-nav'
+require 'pry-rescue'
+require 'pry-stack_explorer'
 
 module Dummy
   class Application < Rails::Application
