@@ -9,6 +9,7 @@ module WatchTower
         person_data: controller.rollbar_person_data
       )
     end
+
     Rollbar.report_exception(exception, options.delete(:request_data), options.delete(:person_data))
 
     Airbrake.notify(exception, options)
