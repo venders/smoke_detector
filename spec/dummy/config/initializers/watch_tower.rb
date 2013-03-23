@@ -3,7 +3,8 @@ module WatchTower
   class Engine < Rails::Engine
 
     config.airbrake = {
-      api_key: "fake_airbrake"
+      api_key: "fake_airbrake",
+      development_environments: []
     }
 
     config.rollbar = {
