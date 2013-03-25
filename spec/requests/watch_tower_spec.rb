@@ -15,7 +15,7 @@ describe 'An exception' do
     end
 
     it 'reports the error to Airbrake' do
-      Airbrake.should_receive(:notify)
+      Airbrake.should_receive(:notify_or_ignore)
       expect { get '/widgets/bubble_up' }.to raise_error(RuntimeError, 'bubble_up')
     end
   end

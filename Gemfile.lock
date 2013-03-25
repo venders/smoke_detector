@@ -148,11 +148,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake
   jquery-rails
   pry
   pry-nav
   pry-rescue
   pry-stack_explorer
+  rollbar
   rspec
   rspec-rails
   ruby-debug19
