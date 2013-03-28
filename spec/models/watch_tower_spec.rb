@@ -22,7 +22,7 @@ describe WatchTower do
 
   describe '.message' do
     context 'given a message' do
-      let(:message) { "holy shit!" }
+      let(:message) { "holy crap!" }
 
       it 'notifies the provider of the message' do
         WatchTower.providers.each do |provider|
