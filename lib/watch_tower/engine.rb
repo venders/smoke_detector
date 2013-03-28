@@ -1,12 +1,12 @@
 module WatchTower
   class Engine < ::Rails::Engine
 
-    config.provider = nil
-    config.api_key = nil
-    config.settings = nil
+    config.providers = nil
 
     initializer 'watch_tower.init_error_handler' do
-      WatchTower.register_provider config.provider, config.api_key, config.settings
+      config.providers.each do |provider|
+        WatchTower.register_provider provider[:provider], provider[:api_key], provider[:settings]
+      end
     end
   end
 end
