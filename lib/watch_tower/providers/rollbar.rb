@@ -3,6 +3,8 @@ module WatchTower::Providers
   class Rollbar < Provider
 
     def initialize(api_key, settings = {})
+      self.extend ::Rollbar::ExceptionReporter
+
       ::Rollbar.configure do |c|
         c.access_token = api_key
         c.person_username_method = settings[:person_username_method] if settings[:person_username_method].present?
@@ -14,17 +16,15 @@ module WatchTower::Providers
 
 
     def alert(exception, options = {})
-      if controller = options.delete(:controller) &&
-         controller.respond_to?(:rollbar_request_data) &&
-         controller.respond_to?(:rollbar_person_data)
-
-        options.reverse_merge!(
-          request_data: controller.rollbar_request_data,
-          person_data: controller.rollbar_person_data
-        )
+      if data = options.delete(:data)
+        exception.message << data.to_s
       end
 
-      ::Rollbar.report_exception(exception, options.delete(:request_data), options.delete(:person_data))
+      if controller = options.delete(:controller)
+        report_exception_to_rollbar(controller.request.env, exception)
+      else
+        ::Rollbar.report_exception(exception)
+      end
     end
 
     def message(message, options = {})

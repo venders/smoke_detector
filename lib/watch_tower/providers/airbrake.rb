@@ -9,11 +9,14 @@ module WatchTower::Providers
     end
 
     def alert(exception, options = {})
-      ::Airbrake.notify(exception, options)
+      options.delete(:controller)
+      message(exception, options)
     end
 
     def message(message, options = {})
-      ::Airbrake.notify(message, options)
+      args = [message]
+      args << {parameters: options[:data]} if options[:data].present?
+      ::Airbrake.notify(*args)
     end
 
   end
