@@ -6,13 +6,28 @@ module WatchTower
     :rollbar
   ]
 
-  mattr_accessor :provider
-
   def self.register_provider(provider_name, api_key, settings = {})
-    return @@provider if @@provider
-    raise 'Unkown Provider' unless PROVIDERS.include?(provider_name)
-    klass = ::ActiveSupport::Inflector.constantize("WatchTower::Providers::#{provider_name.capitalize}")
-    @@provider = klass.new(api_key, settings)
+    @providers ||= []
+    raise ProviderRegistrationError, 'Unsupported Provider' unless PROVIDERS.include?(provider_name)
+    raise ProviderRegistrationError, 'Provider is already registered' if registered_provider?(provider_name)
+    @providers << classify_provider(provider_name).new(api_key, settings)
+  end
+
+  def self.providers
+    @providers || []
+  end
+
+  def self.registered_provider?(provider_name)
+    raise ProviderRegistrationError, 'Unsupported Provider' unless PROVIDERS.include?(provider_name)
+    klass = classify_provider(provider_name)
+    !!WatchTower.providers.detect { |provider| provider.is_a?(klass) }
+  end
+
+  private
+
+  def self.classify_provider(provider_name)
+    raise ProviderRegistrationError, 'Unsupported Provider' unless PROVIDERS.include?(provider_name)
+    ::ActiveSupport::Inflector.constantize("WatchTower::Providers::#{provider_name.capitalize}")
   end
 end
 

@@ -3,31 +3,30 @@ require 'spec_helper'
 describe WatchTower do
   describe '.alert' do
     let(:err) { Exception.new }
-    let(:request_data) { {request: 'data'} }
-    let(:person_data) { {person: 'data'} }
 
-    def alert_watch_tower
-      WatchTower.alert(*args)
+    before do
+      WatchTower.register_provider(:airbrake, 'key')
+      WatchTower.providers.size.should > 1
     end
 
     context 'given an exception' do
-      let(:args) { [err] }
-
       it 'notifies the provider of the exception' do
-        WatchTower.provider.should_receive(:alert).once.with(err, {})
+        WatchTower.providers.each do |provider|
+          provider.should_receive(:alert).once.with(err, {})
+        end
         WatchTower.alert(err)
       end
     end
   end
 
   describe '.message' do
-    let(:message) { "holy shit!" }
-
     context 'given a message' do
-      let(:args) { [message] }
+      let(:message) { "holy shit!" }
 
       it 'notifies the provider of the message' do
-        WatchTower.provider.should_receive(:message).once.with(message, {})
+        WatchTower.providers.each do |provider|
+          provider.should_receive(:message).once.with(message, {})
+        end
         WatchTower.message(message)
       end
     end

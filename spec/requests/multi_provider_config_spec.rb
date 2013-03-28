@@ -1,11 +1,13 @@
 require 'spec_helper'
 
-describe 'An exception' do
+describe 'Multi-provider config: An exception' do
 
   before do
-    # sandbox services
-    Airbrake.stub(:send_notice)
-    Rollbar.stub(:schedule_payload)
+    WatchTower.instance_variable_set(:@providers, [])
+
+    WatchTower.register_provider(:rollbar, 'key')
+    WatchTower.register_provider(:airbrake, 'key')
+    WatchTower.providers.size.should == 2
   end
 
   context 'uncaught in a controller' do
