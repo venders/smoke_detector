@@ -6,6 +6,7 @@ describe WatchTower do
 
     before do
       WatchTower.register_provider(:airbrake, 'key')
+      WatchTower.register_provider(:rollbar, 'key')
       WatchTower.providers.size.should > 1
     end
 

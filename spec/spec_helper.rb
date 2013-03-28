@@ -16,16 +16,11 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.before(:each) do
-    WatchTower.instance_variable_set(:@providers, @providers)
-    WatchTower.register_provider(:rollbar, 'some_key')
-    WatchTower.providers.size.should == 1
+    WatchTower.instance_variable_set(:@providers, [])
 
     # sandbox services
     Airbrake.stub(:send_notice)
     Rollbar.stub(:schedule_payload)
   end
 
-  config.after(:each) do
-    WatchTower.instance_variable_set(:@providers, @providers)
-  end
 end
