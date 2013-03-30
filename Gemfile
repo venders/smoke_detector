@@ -6,7 +6,7 @@ gemspec
 gem "jquery-rails"
 
 # Airbrake must be required before initialization because its middleware is added via an initializer
-gem 'airbrake'
+# gem 'airbrake'
 gem 'rollbar'
 
 group :development, :test do

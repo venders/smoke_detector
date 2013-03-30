@@ -1,0 +1,22 @@
+defaults: &defaults
+  providers:
+    -
+      provider: airbrake
+      api_key: aibrake_api
+      settings:
+        development_environments:
+          - development
+    -
+      provider: rollbar
+      api_key: rollbar_api
+      settings:
+        async: true
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

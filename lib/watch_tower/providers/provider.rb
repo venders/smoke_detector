@@ -1,6 +1,7 @@
 module WatchTower::Providers
 
   class Provider
+
     def alert(exception, options = {})
       raise NotImplementedError
     end

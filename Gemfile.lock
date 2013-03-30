@@ -148,7 +148,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake
   jquery-rails
   pry
   pry-nav
