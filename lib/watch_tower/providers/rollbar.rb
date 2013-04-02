@@ -32,6 +32,11 @@ module WatchTower::Providers
       ::Rollbar.report_message(message, level, options)
     end
 
+    module ControllerMethods
+      def alert_watch_tower(exception, options = {})
+        # TODO allow data to be added?
+        report_exception(exception, rollbar_request_data, rollbar_person_data)
+      end
+    end
   end
-
 end

@@ -19,5 +19,10 @@ module WatchTower::Providers
       ::Airbrake.notify(*args)
     end
 
+    module ControllerMethods
+      def alert_watch_tower(exception, options = {})
+        notify_airbrake(exception, options)
+      end
+    end
   end
 end
