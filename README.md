@@ -25,13 +25,14 @@ module WatchTower
 
   class Engine < Rails::Engine
 
-    config.airbrake = {
-      api_key: ENV['AIRBRAKE_KEY']
-    }
-
-    config.rollbar = {
-      api_key: ENV['ROLLBAR_KEY']
-    }
+    config.providers = [
+      {provider: :airbrake,
+        api_key: ENV['AIRBRAKE_KEY']
+      },
+      {provider: :rollbar,
+        api_key: ENV['ROLLBAR_KEY']
+      }
+    ]
 
   end
 end
