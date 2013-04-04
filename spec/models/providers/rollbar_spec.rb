@@ -12,26 +12,6 @@ describe WatchTower::Providers::Rollbar do
       provider.alert(err)
     end
 
-    context 'when passed a controller option' do
-      let(:request_data) { {request: :data} }
-      let(:person_data) { {person: :data} }
-      let(:controller) do
-        mock('controller').tap do |c|
-          c.stub_chain(:request, :env).and_return(mock('env'))
-        end
-      end
-
-      before do
-        provider.stub(:extract_request_data_from_rack).and_return(request_data)
-        provider.stub(:extract_person_data_from_controller).and_return(person_data)
-      end
-
-      it 'includes the request_data and person_data' do
-        Rollbar.should_receive(:report_exception).with(err, request_data, person_data)
-        provider.alert(err, controller: controller)
-      end
-    end
-
     context 'when passed a data option' do
       it 'includes the data in the exception message' do
         err.message.should_receive(:<<).with(data.to_s)
@@ -72,6 +52,23 @@ describe WatchTower::Providers::Rollbar do
           Rollbar.should_receive(:report_message).with(message, level, options)
           provider.message(message, options)
         end
+      end
+    end
+  end
+
+  describe 'ControllerMethods' do
+    let(:controller) do
+      ActionController::Base.new.tap do |c|
+        c.class.send(:include, WatchTower::Providers::Rollbar::ControllerMethods)
+      end
+    end
+
+    describe '#alert_watch_tower' do
+      it 'notifies Rollbar of the exception' do
+        Rollbar.should_receive(:report_exception)
+        controller.should_receive(:rollbar_request_data)
+        controller.should_receive(:rollbar_person_data)
+        controller.alert_watch_tower(err)
       end
     end
   end

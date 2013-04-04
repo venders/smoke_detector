@@ -44,6 +44,5 @@ TODO
 ----
 
 1. Add support for JS reporting snippets
-2. Refactor provider configurations into plug-and-play classes
-3. Add support for all configuration settings
-4. Only allow one provider at a time similar to fog's config (necessary for gem publication)
+2. Add support for all configuration settings
+3. Only allow one provider at a time similar to fog's config (necessary for gem publication)

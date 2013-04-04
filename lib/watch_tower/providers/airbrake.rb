@@ -21,7 +21,9 @@ module WatchTower::Providers
 
     module ControllerMethods
       def alert_watch_tower(exception, options = {})
-        notify_airbrake(exception, options)
+        super if defined?(super)
+
+        notify_airbrake(exception)
       end
     end
   end

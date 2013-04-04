@@ -3,8 +3,6 @@ module WatchTower::Providers
   class Rollbar < Provider
 
     def initialize(api_key, settings = {})
-      self.extend ::Rollbar::ExceptionReporter
-
       ::Rollbar.configure do |c|
         c.access_token = api_key
         c.person_username_method = settings[:person_username_method] if settings[:person_username_method].present?
@@ -20,11 +18,7 @@ module WatchTower::Providers
         exception.message << data.to_s
       end
 
-      if controller = options.delete(:controller)
-        report_exception_to_rollbar(controller.request.env, exception)
-      else
-        ::Rollbar.report_exception(exception)
-      end
+      ::Rollbar.report_exception(exception)
     end
 
     def message(message, options = {})
@@ -34,8 +28,13 @@ module WatchTower::Providers
 
     module ControllerMethods
       def alert_watch_tower(exception, options = {})
-        # TODO allow data to be added?
-        report_exception(exception, rollbar_request_data, rollbar_person_data)
+        super if defined?(super)
+
+        if data = options.delete(:data)
+          exception.message << data.to_s
+        end
+
+        ::Rollbar.report_exception(exception, rollbar_request_data, rollbar_person_data)
       end
     end
   end

@@ -8,7 +8,8 @@ shared_examples_for 'Airbrake integrated error handler' do
 
   context 'caught and reported in a controller' do
     it 'reports the error to Airbrake' do
-      Airbrake.should_receive(:notify)
+      Airbrake.should_receive(:notify_or_ignore)
+      WidgetsController.any_instance.stub(:airbrake_local_request?).and_return(false)
       expect { get '/widgets/catch' }.to_not raise_error(RuntimeError)
     end
   end

@@ -1,5 +1,6 @@
 require 'watch_tower/exceptions'
 require 'watch_tower/providers'
+require 'watch_tower/controller_methods'
 require 'watch_tower/engine'
 
 module WatchTower
@@ -14,7 +15,6 @@ module WatchTower
   #   end
   #
   # @param exception [Exception] The exception object to report
-  # @option options [ActionController::Base] :controller The controller context
   # @option options [Hash] :data Additional data to include alongside the exception
   def self.alert(exception, options = {})
     self.providers.each {|provider| provider.alert(exception, options) }
