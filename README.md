@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/lumoslabs/watch_tower.png)](https://travis-ci.org/lumoslabs/watch_tower)
+
 Watch Tower
 =============
 
