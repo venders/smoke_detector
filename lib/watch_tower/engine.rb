@@ -12,5 +12,9 @@ module WatchTower
         include WatchTower::ControllerMethods
       end
     end
+
+    initializer 'watch_tower.add_middleware' do |app|
+      app.middleware.use BrowserTracking
+    end
   end
 end

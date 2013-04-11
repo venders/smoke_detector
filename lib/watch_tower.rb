@@ -1,6 +1,7 @@
 require 'watch_tower/exceptions'
 require 'watch_tower/providers'
 require 'watch_tower/controller_methods'
+require 'watch_tower/middleware/browser_tracking'
 require 'watch_tower/engine'
 
 module WatchTower

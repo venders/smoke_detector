@@ -3,4 +3,5 @@ Dummy::Application.routes.draw do
   match '/widgets/deep_bubble_up' => 'widgets#deep_bubble_up'
   match '/widgets/catch' => 'widgets#catch'
   match '/widgets/deep_catch' => 'widgets#deep_catch'
+  match '/widgets/js_error' => 'widgets#js_error'
 end

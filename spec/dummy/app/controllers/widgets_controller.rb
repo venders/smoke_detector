@@ -23,4 +23,6 @@ class WidgetsController < ApplicationController
     render :index
   end
 
+  def js_error
+  end
 end
