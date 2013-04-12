@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe WatchTower::Providers::Provider do
-  let(:provider) { WatchTower::Providers::Provider.new }
+  let(:api_key) { 'api_key' }
+  let(:provider) { WatchTower::Providers::Provider.new(api_key) }
 
   describe '#alert' do
     subject { provider.alert(Exception.new) }
