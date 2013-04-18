@@ -47,4 +47,4 @@ TODO
 
 1. Add support for JS reporting snippets
 2. Add support for all configuration settings
-3. Only allow one provider at a time similar to fog's config (necessary for gem publication)
+3. Add support for capistrano deploy announcements
