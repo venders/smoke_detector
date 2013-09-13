@@ -1,6 +1,6 @@
 language: ruby
 
-bundler_args: ""
+bundler_args: --no-deployment
 
 before_install: mkdir -p spec/dummy/db
 
