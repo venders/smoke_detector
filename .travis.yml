@@ -1,5 +1,7 @@
 language: ruby
 
+bundler_args: ""
+
 before_install: mkdir -p spec/dummy/db
 
 rvm:
