@@ -39,7 +39,6 @@ module SmokeDetector
   end
 end
 ```
-Note: Only a subset of configuration parameters are currently available.
 
 
 TODO
