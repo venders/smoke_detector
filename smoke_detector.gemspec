@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/lumoslabs/smoke_detector"
   s.summary     = "Errors Alerts"
   s.description = "Provides a single interface for posting errors to multiple error reporting providers (Airbrake and Rollbar)"
+  s.license     = 'MIT'
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
