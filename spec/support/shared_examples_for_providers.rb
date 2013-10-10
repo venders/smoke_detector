@@ -10,7 +10,7 @@ shared_examples_for 'Airbrake integrated error handler' do
     it 'reports the error to Airbrake' do
       Airbrake.should_receive(:notify_or_ignore)
       WidgetsController.any_instance.stub(:airbrake_local_request?).and_return(false)
-      expect { get '/widgets/catch' }.to_not raise_error(RuntimeError)
+      expect { get '/widgets/catch' }.not_to raise_error
     end
   end
 
@@ -24,7 +24,7 @@ shared_examples_for 'Airbrake integrated error handler' do
   context 'caught and reported in a model' do
     it 'reports the error to Airbrake' do
       Airbrake.should_receive(:notify)
-      expect { get '/widgets/deep_catch' }.to_not raise_error(RuntimeError)
+      expect { get '/widgets/deep_catch' }.not_to raise_error
     end
   end
 end
@@ -40,7 +40,7 @@ shared_examples_for 'Rollbar integrated error handler' do
   context 'caught and reported in a controller' do
     it 'reports the error to Rollbar' do
       Rollbar.should_receive(:report_exception)
-      expect { get '/widgets/catch' }.to_not raise_error(RuntimeError)
+      expect { get '/widgets/catch' }.not_to raise_error
     end
   end
 
@@ -54,7 +54,7 @@ shared_examples_for 'Rollbar integrated error handler' do
   context 'caught and reported in a model' do
     it 'reports the error to Rollbar' do
       Rollbar.should_receive(:report_exception)
-      expect { get '/widgets/deep_catch' }.to_not raise_error(RuntimeError)
+      expect { get '/widgets/deep_catch' }.not_to raise_error
     end
   end
 end

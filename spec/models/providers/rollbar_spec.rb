@@ -8,9 +8,10 @@ describe SmokeDetector::Providers::Rollbar do
 
   describe '#initialize' do
     describe 'environment setting' do
+      before { SmokeDetector::Providers::Rollbar.new('api_key', settings) }
+
       it 'defaults to the Rails environment' do
-        provider
-        ::Rollbar.configuration.environment.should == Rails.env
+        expect(::Rollbar.configuration.environment).to eql Rails.env
       end
 
       context 'given a specific environment' do
@@ -18,8 +19,7 @@ describe SmokeDetector::Providers::Rollbar do
         let(:settings) { { environment: env } }
 
         it 'is set to the given environment' do
-          provider
-          ::Rollbar.configuration.environment.should == env
+          expect(::Rollbar.configuration.environment).to eql env
         end
       end
     end
