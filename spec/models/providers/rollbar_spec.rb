@@ -6,6 +6,25 @@ describe SmokeDetector::Providers::Rollbar do
   let(:err) { StandardError.new('error') }
   let(:data) { {custom: :data} }
 
+  describe '#initialize' do
+    describe 'environment setting' do
+      it 'defaults to the Rails environment' do
+        provider
+        ::Rollbar.configuration.environment.should == Rails.env
+      end
+
+      context 'given a specific environment' do
+        let(:env) { 'staging' }
+        let(:settings) { { environment: env } }
+
+        it 'is set to the given environment' do
+          provider
+          ::Rollbar.configuration.environment.should == env
+        end
+      end
+    end
+  end
+
   describe '#alert' do
     it 'reports the exception to Rollbar' do
       Rollbar.should_receive(:report_exception).with(err)

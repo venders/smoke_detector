@@ -32,8 +32,7 @@ end
 shared_examples_for 'Rollbar integrated error handler' do
   context 'uncaught in a controller' do
     it 'reports the error to Rollbar' do
-      # TODO why is this firing twice in tests? once in ActionDispatch and once in Test Session
-      Rollbar.should_receive(:report_exception).twice.and_return({})
+      Rollbar.should_receive(:report_exception).and_return({})
       expect { get '/widgets/bubble_up' }.to raise_error(RuntimeError, 'bubble_up')
     end
   end
@@ -47,8 +46,7 @@ shared_examples_for 'Rollbar integrated error handler' do
 
   context 'uncaught in a model' do
     it 'reports the error to Rollbar' do
-      # TODO why is this firing twice in tests? once in ActionDispatch and once in Test Session
-      Rollbar.should_receive(:report_exception).twice.and_return({})
+      Rollbar.should_receive(:report_exception).and_return({})
       expect { get '/widgets/deep_bubble_up' }.to raise_error(RuntimeError, 'deep_bubble_up')
     end
   end
