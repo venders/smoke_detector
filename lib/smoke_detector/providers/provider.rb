@@ -11,6 +11,10 @@ module SmokeDetector::Providers
       raise NotImplementedError
     end
 
+    def client_tracking_code
+      ''
+    end
+
     private
 
     def apply_configuration_settings(configuration, settings)

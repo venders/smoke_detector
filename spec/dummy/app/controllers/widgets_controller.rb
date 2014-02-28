@@ -1,5 +1,8 @@
 class WidgetsController < ApplicationController
 
+  def index
+  end
+
   def bubble_up
     raise 'bubble_up'
     render :index

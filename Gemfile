@@ -14,5 +14,4 @@ group :development, :test do
   gem 'pry-nav'
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
-  gem 'ruby-debug19'
 end

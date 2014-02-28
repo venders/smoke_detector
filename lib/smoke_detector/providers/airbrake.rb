@@ -1,7 +1,7 @@
 module SmokeDetector::Providers
   class Airbrake < Provider
 
-    def initialize(api_key, settings = {})
+    def initialize(api_key, client_api_key, settings = {})
       ::Airbrake.configure do |c|
         c.api_key = api_key
         apply_configuration_settings(c, settings)

@@ -28,5 +28,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'pry-nav'
   s.add_development_dependency 'pry-rescue'
   s.add_development_dependency 'pry-stack_explorer'
-  s.add_development_dependency 'ruby-debug19'
 end
