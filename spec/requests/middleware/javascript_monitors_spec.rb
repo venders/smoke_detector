@@ -5,11 +5,11 @@ describe SmokeDetector::JavaScriptMonitors do
 
   before do
     SmokeDetector.instance_variable_set(:@providers, [])
-    # FIXME There is only one instance of the middleware class so the @tracking_code instance
+    # FIXME There is only one instance of the middleware class so the @monitoring_code instance
     #       variable is only set once on app init and there's no easy way to access that
     #       instance.
     ObjectSpace.each_object(SmokeDetector::JavaScriptMonitors) do |jsm|
-      jsm.instance_variable_set(:@tracking_code, nil)
+      jsm.instance_variable_set(:@monitoring_code, nil)
     end
   end
 

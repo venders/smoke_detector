@@ -14,7 +14,7 @@ module SmokeDetector
       if monitor?(headers)
         body = response.body
         if index = body.rindex(TARGET_TAG) + TARGET_TAG.length + 1
-          body.insert(index, tracking_code)
+          body.insert(index, monitoring_code)
           headers["Content-Length"] = body.length.to_s
           response = [body]
         end
@@ -25,12 +25,12 @@ module SmokeDetector
 
     private
 
-    def tracking_code
-      @tracking_code ||= SmokeDetector.providers.map(&:client_tracking_code).join('')
+    def monitoring_code
+      @monitoring_code ||= SmokeDetector.providers.map(&:client_monitoring_code).join('')
     end
 
     def monitor?(headers)
-      headers["Content-Type"] =~ ACCEPTABLE_CONTENT && tracking_code.present?
+      headers["Content-Type"] =~ ACCEPTABLE_CONTENT && monitoring_code.present?
     end
   end
 end

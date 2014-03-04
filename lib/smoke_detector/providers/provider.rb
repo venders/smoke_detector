@@ -15,7 +15,7 @@ module SmokeDetector::Providers
       raise NotImplementedError
     end
 
-    def client_tracking_code
+    def client_monitoring_code
       ''
     end
 

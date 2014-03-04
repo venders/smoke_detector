@@ -31,9 +31,9 @@ module SmokeDetector::Providers
       ::Rollbar.report_message(message, level, options)
     end
 
-    def client_tracking_code
+    def client_monitoring_code
       return '' if client_api_key.blank?
-      @client_tracking_code ||= <<-JS
+      @client_monitoring_code ||= <<-JS
         <script>
           var _rollbarConfig = {
               accessToken: "#{@client_api_key}",
