@@ -5,8 +5,8 @@ describe 'Multi-provider config: An exception' do
   before do
     SmokeDetector.instance_variable_set(:@providers, [])
 
-    SmokeDetector.register_provider(:rollbar, 'key')
-    SmokeDetector.register_provider(:airbrake, 'key')
+    SmokeDetector.register_provider(:rollbar, 'key', nil)
+    SmokeDetector.register_provider(:airbrake, 'key', nil)
     SmokeDetector.providers.size.should == 2
   end
 

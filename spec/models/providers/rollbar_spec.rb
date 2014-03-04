@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe SmokeDetector::Providers::Rollbar do
-  let(:provider) { SmokeDetector::Providers::Rollbar.new('api_key', settings) }
+  let(:provider) { SmokeDetector::Providers::Rollbar.new('api_key', nil, settings) }
   let(:settings) { {} }
   let(:err) { StandardError.new('error') }
   let(:data) { {custom: :data} }
 
   describe '#initialize' do
     describe 'environment setting' do
-      before { SmokeDetector::Providers::Rollbar.new('api_key', settings) }
+      before { SmokeDetector::Providers::Rollbar.new('api_key', nil, settings) }
 
       it 'defaults to the Rails environment' do
         expect(::Rollbar.configuration.environment).to eql Rails.env

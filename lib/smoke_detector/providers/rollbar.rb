@@ -2,8 +2,8 @@ module SmokeDetector::Providers
 
   class Rollbar < Provider
 
-    def initialize(api_key, client_api_key, settings = {})
-      @client_api_key = client_api_key
+    def initialize(api_key, client_api_key = nil, settings = {})
+      super
       ::Rollbar.configure do |c|
         c.environment = ::Rails.env # Rollbar sets this to 'unspecified' by default
 
@@ -32,7 +32,7 @@ module SmokeDetector::Providers
     end
 
     def client_tracking_code
-      return '' if @client_api_key.blank?
+      return '' if client_api_key.blank?
       @client_tracking_code ||= <<-JS
         <script>
           var _rollbarConfig = {

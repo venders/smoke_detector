@@ -2,6 +2,7 @@ module SmokeDetector
   class JavaScriptMonitors
 
     TARGET_TAG = '<head>'
+    ACCEPTABLE_CONTENT = /text\/html|application\/xhtml\+xml/
 
     def initialize(app)
       @app = app
@@ -10,12 +11,10 @@ module SmokeDetector
     def call(env)
       status, headers, response = @app.call(env)
 
-      if headers["Content-Type"] =~ /text\/html|application\/xhtml\+xml/
-        body = ''
-        response.each { |part| body << part }
-        index = body.rindex(TARGET_TAG) + TARGET_TAG.length + 1
-        if index
-          body.insert(index, JavaScriptMonitors.tracking_code)
+      if monitor?(headers)
+        body = response.body
+        if index = body.rindex(TARGET_TAG) + TARGET_TAG.length + 1
+          body.insert(index, tracking_code)
           headers["Content-Length"] = body.length.to_s
           response = [body]
         end
@@ -26,8 +25,12 @@ module SmokeDetector
 
     private
 
-    def self.tracking_code
-      @tracking_code ||= SmokeDetector.providers.inject("") { |acc, provider| acc << provider.client_tracking_code }
+    def tracking_code
+      @tracking_code ||= SmokeDetector.providers.map(&:client_tracking_code).join('')
+    end
+
+    def monitor?(headers)
+      headers["Content-Type"] =~ ACCEPTABLE_CONTENT && tracking_code.present?
     end
   end
 end

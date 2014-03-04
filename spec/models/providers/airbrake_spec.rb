@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SmokeDetector::Providers::Airbrake do
-  let(:provider) { SmokeDetector::Providers::Airbrake.new('api_key', settings) }
+  let(:provider) { SmokeDetector::Providers::Airbrake.new('api_key', nil, settings) }
   let(:settings) { {} }
   let(:err) { double('error', backtrace: [], message: 'bad news') }
   let(:data) { {custom: :data} }

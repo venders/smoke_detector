@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe SmokeDetector::Providers::Provider do
-  let(:provider) { SmokeDetector::Providers::Provider.new }
+  let(:api_key) { 'some_key' }
+  let(:provider) { SmokeDetector::Providers::Provider.new(api_key) }
 
   describe '#alert' do
     subject { provider.alert(Exception.new) }
