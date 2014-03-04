@@ -34,8 +34,3 @@ module SmokeDetector
     end
   end
 end
-
-
-
-
-
