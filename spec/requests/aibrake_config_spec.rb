@@ -4,7 +4,7 @@ describe 'Airbrake config: An exception' do
 
   before do
     SmokeDetector.instance_variable_set(:@providers, [])
-    SmokeDetector.register_provider(:airbrake, 'key')
+    SmokeDetector.register_provider(:airbrake, 'key', nil)
   end
 
   it_behaves_like 'Airbrake integrated error handler'

@@ -1,6 +1,7 @@
 require 'smoke_detector/exceptions'
 require 'smoke_detector/providers'
 require 'smoke_detector/controller_methods'
+require 'smoke_detector/middleware/javascript_monitors'
 require 'smoke_detector/engine'
 
 module SmokeDetector

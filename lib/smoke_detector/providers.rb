@@ -6,11 +6,11 @@ module SmokeDetector
     :rollbar
   ]
 
-  def self.register_provider(provider_name, api_key, settings = {})
+  def self.register_provider(provider_name, api_key, client_api_key, settings = {})
     @providers ||= []
     raise ProviderRegistrationError, 'Unsupported Provider' unless PROVIDERS.include?(provider_name)
     raise ProviderRegistrationError, 'Provider is already registered' if registered_provider?(provider_name)
-    @providers << classify_provider(provider_name).new(api_key, settings)
+    @providers << classify_provider(provider_name).new(api_key, client_api_key, settings)
   end
 
   def self.providers

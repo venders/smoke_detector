@@ -1,4 +1,5 @@
 Dummy::Application.routes.draw do
+  resources :widgets, only: :index
   match '/widgets/bubble_up' => 'widgets#bubble_up'
   match '/widgets/deep_bubble_up' => 'widgets#deep_bubble_up'
   match '/widgets/catch' => 'widgets#catch'

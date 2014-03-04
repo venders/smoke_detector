@@ -3,6 +3,10 @@ module SmokeDetector::Providers
   class Provider
     attr_accessor :controller_proc
 
+    def initialize(api_key, client_api_key = nil, settings = {})
+      @client_api_key = client_api_key
+    end
+
     def alert(exception, options = {})
       raise NotImplementedError
     end
@@ -11,7 +15,15 @@ module SmokeDetector::Providers
       raise NotImplementedError
     end
 
+    def client_monitoring_code
+      ''
+    end
+
     private
+
+    def client_api_key
+      @client_api_key
+    end
 
     def apply_configuration_settings(configuration, settings)
       settings.each do |setting, value|
