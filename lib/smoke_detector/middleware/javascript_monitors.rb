@@ -12,9 +12,10 @@ module SmokeDetector
       status, headers, response = @app.call(env)
 
       if monitor?(headers)
-        body = response.body
-        if index = body.rindex(TARGET_TAG) + TARGET_TAG.length + 1
-          body.insert(index, monitoring_code)
+        body = ''
+        response.each { |part| body << part }
+        if index = body.rindex(TARGET_TAG)
+          body.insert(index + TARGET_TAG.length + 1, monitoring_code)
           headers["Content-Length"] = body.length.to_s
           response = [body]
         end
