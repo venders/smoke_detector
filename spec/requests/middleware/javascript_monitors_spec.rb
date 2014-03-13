@@ -26,7 +26,7 @@ describe SmokeDetector::JavaScriptMonitors do
 
     it 'does not inject url filtering code' do
       get '/widgets'
-      expect(Nokogiri::HTML(response.body).css('head script:contains("function ignoreRemoteUncaught")')).to be_empty
+      expect(Nokogiri::HTML(response.body).css('head script:contains("_rollbarConfig.checkIgnore")')).to be_empty
     end
 
     context 'with url filtering enabled' do
@@ -34,7 +34,7 @@ describe SmokeDetector::JavaScriptMonitors do
 
       it 'injects the Rollbar JS snippet into the <head>' do
         get '/widgets'
-        expect(Nokogiri::HTML(response.body).css('head script:contains("function ignoreRemoteUncaught")')).to_not be_empty
+        expect(Nokogiri::HTML(response.body).css('head script:contains("_rollbarConfig.checkIgnore")')).to_not be_empty
       end
     end
   end
