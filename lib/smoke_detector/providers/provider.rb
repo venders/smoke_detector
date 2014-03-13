@@ -4,7 +4,8 @@ module SmokeDetector::Providers
     attr_accessor :controller_proc
 
     def initialize(api_key, client_api_key = nil, settings = {})
-      @client_api_key = client_api_key
+      @client_api_key          = client_api_key
+      @js_url_filter = settings.delete(:js_url_filter)
     end
 
     def alert(exception, options = {})
