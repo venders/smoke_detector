@@ -7,7 +7,9 @@ module SmokeDetector
       {
         provider: :rollbar,
         api_key: 'fake_rollbar',
-        client_api_key: 'fake_rollbar_client',
+        client: {
+          api_key: 'fake_rollbar_client'
+        },
         settings: {
           use_async: true
         }

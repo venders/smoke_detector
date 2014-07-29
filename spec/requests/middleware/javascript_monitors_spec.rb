@@ -15,7 +15,7 @@ describe SmokeDetector::JavaScriptMonitors do
 
   context 'with a Rollbar client API key configured' do
     before do
-      SmokeDetector.register_provider(:rollbar, 'key', 'client_key')
+      SmokeDetector.register_provider(:rollbar, 'key', {api_key: 'client_key' })
     end
 
     it 'injects the Rollbar JS snippet into the <head>' do

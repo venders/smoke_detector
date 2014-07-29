@@ -3,8 +3,9 @@ module SmokeDetector::Providers
   class Provider
     attr_accessor :controller_proc
 
-    def initialize(api_key, client_api_key = nil, settings = {})
-      @client_api_key = client_api_key
+    def initialize(api_key, client_settings = {}, settings = {})
+      @client_settings = client_settings || {}
+      @client_api_key  = @client_settings[:api_key]
     end
 
     def alert(exception, options = {})

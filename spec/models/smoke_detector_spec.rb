@@ -5,8 +5,8 @@ describe SmokeDetector do
     let(:err) { Exception.new }
 
     before do
-      SmokeDetector.register_provider(:airbrake, 'key', 'client_key')
-      SmokeDetector.register_provider(:rollbar, 'key', 'client_key')
+      SmokeDetector.register_provider(:airbrake, 'key', {api_key: 'client_key'})
+      SmokeDetector.register_provider(:rollbar, 'key', {api_key: 'client_key'})
       SmokeDetector.providers.size.should > 1
     end
 

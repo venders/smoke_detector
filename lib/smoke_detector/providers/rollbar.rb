@@ -2,7 +2,9 @@ module SmokeDetector::Providers
 
   class Rollbar < Provider
 
-    def initialize(api_key, client_api_key = nil, settings = {})
+    attr_accessor :client_host_whitelist, :client_ignore_partial_messages
+
+    def initialize(api_key, client_settings = {}, settings = {})
       super
       ::Rollbar.configure do |c|
         c.environment = ::Rails.env # Rollbar sets this to 'unspecified' by default
