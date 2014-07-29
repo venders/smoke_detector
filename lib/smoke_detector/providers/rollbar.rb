@@ -20,7 +20,7 @@ module SmokeDetector::Providers
       end
 
       @client_host_whitelist  = @client_settings[:host_whitelist] || []
-      @client_ignore_messages = @client_settings[:ignored_messages] || []
+      @client_ignored_messages = @client_settings[:ignored_messages] || []
     end
 
     def alert(exception, options = {})
