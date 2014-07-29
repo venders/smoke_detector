@@ -35,4 +35,17 @@ describe SmokeDetector::JavaScriptMonitors do
     end
   end
 
+  context 'with hostWhitelist Rollbar client setting configured' do
+    before do
+      SmokeDetector.register_provider(:rollbar, 'key', {api_key: 'client_key', host_whitelist: ['example.com', 'facebook.com']})
+    end
+
+    it 'injects the Rollbar JS snippet into the <head> with hostWhitelist set' do
+      get '/widgets'
+      script_content = Nokogiri::HTML(response.body).css('head script:contains("_rollbarConfig")').children.first
+      position = /hostWhiteList:\s*\["example.com", "facebook.com"\]/i =~ script_content
+      expect(position).to_not be_nil
+    end
+  end
+
 end
