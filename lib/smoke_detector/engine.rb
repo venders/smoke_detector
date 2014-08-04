@@ -5,7 +5,7 @@ module SmokeDetector
 
     initializer 'smoke_detector.init_error_handler' do |app|
       config.providers.each do |provider|
-        SmokeDetector.register_provider(provider[:provider], provider[:api_key], provider[:client], provider[:settings] || {})
+        SmokeDetector.register_provider(provider[:provider], provider[:api_key], provider[:client_settings], provider[:settings] || {})
       end
 
       ActiveSupport.on_load(:action_controller) do

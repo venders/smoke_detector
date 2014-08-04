@@ -7,7 +7,7 @@ module SmokeDetector
       {
         provider: :rollbar,
         api_key: 'fake_rollbar',
-        client: {
+        client_settings: {
           api_key: 'fake_rollbar_client'
         },
         settings: {
