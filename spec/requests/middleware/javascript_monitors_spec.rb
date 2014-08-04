@@ -41,7 +41,13 @@ describe SmokeDetector::JavaScriptMonitors do
     end
 
     shared_examples "a properly set hostWhiteList" do
-      it 'injects the Rollbar JS snippet into the <head> with hostWhitelist set' do
+      it 'injects the Rollbar JS snippet into the <head>' do
+        get '/widgets'
+        rollbar_snippet = Nokogiri::HTML(response.body).css('head script:contains("_rollbarConfig")').children.first
+        expect(rollbar_snippet).to_not be_nil
+      end
+
+      it 'sets hostWhitelist' do
         get '/widgets'
         script_content = Nokogiri::HTML(response.body).css('head script:contains("_rollbarConfig")').children.first
         position = /hostWhiteList:\s*#{Regexp.escape(host_whitelist.to_s)}/i =~ script_content
