@@ -13,7 +13,6 @@ Add the following to your `Gemfile`:
 ```
 gem 'smoke_detector'
 ```
-This assumes you're using Lumos Labs' gemfury account.
 
 Then add the provider's gem to your gemfile. Smoke Detector currently supports Rollbar and Airbrake. For example,
 ```
