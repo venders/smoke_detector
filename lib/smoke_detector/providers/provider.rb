@@ -2,6 +2,7 @@ module SmokeDetector::Providers
 
   class Provider
     attr_accessor :controller_proc
+    attr_reader :client_settings
 
     def initialize(api_key, client_settings = {}, settings = {})
       @client_settings = client_settings || {}
@@ -18,6 +19,10 @@ module SmokeDetector::Providers
 
     def client_monitoring_code
       ''
+    end
+
+    def default_client_settings
+      {}
     end
 
     private

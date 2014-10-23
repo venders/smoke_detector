@@ -125,14 +125,4 @@ describe SmokeDetector::Providers::Rollbar do
       expect(subject[:payload][:person]).to eq(personData)
     end
   end
-
-  describe "#client_monitoring_code" do
-    let(:client_settings) { { api_key: "this is the key, you shall not pass without it" } }
-
-    subject { provider.client_monitoring_code }
-
-    it "translates api_key to accessToken" do
-      expect(subject).to include( "\"accessToken\":\"#{client_settings[:api_key]}\"" )
-    end
-  end
 end

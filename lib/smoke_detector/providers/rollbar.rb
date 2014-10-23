@@ -2,10 +2,6 @@ require 'json'
 module SmokeDetector::Providers
 
   class Rollbar < Provider
-
-    attr_accessor :client_host_whitelist, :client_ignore_partial_messages
-    attr_reader :client_settings, :settings
-
     def initialize(api_key, client_settings = {}, settings = {})
       super
       ::Rollbar.configure do |c|
@@ -21,7 +17,10 @@ module SmokeDetector::Providers
         c.filepath ||= ::Rails.application.class.parent_name + '.rollbar'
       end
 
-      @client_settings = default_client_settings.deep_merge(client_settings)
+      @client_settings = default_client_settings
+      unless client_settings.nil?
+        @client_settings = @client_settings.deep_merge(client_settings)
+      end
     end
 
     def alert(exception, options = {})
