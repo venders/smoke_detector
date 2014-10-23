@@ -42,7 +42,8 @@ module SmokeDetector::Providers
     end
 
     def client_monitoring_code
-      return '' if client_settings[:api_key].blank?      
+      return '' if client_settings[:api_key].blank?
+      client_settings[:accessToken] = client_settings.delete(:api_key)
       @client_monitoring_code ||= <<-JS
         <script>
           var _rollbarConfig = {
