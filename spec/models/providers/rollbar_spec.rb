@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe SmokeDetector::Providers::Rollbar do
-  let(:provider) { SmokeDetector::Providers::Rollbar.new('api_key', nil, settings) }
+  let(:provider) { SmokeDetector::Providers::Rollbar.new('api_key', client_settings, settings) }
+  let(:client_settings) { nil }
   let(:settings) { {} }
   let(:err) { StandardError.new('error') }
   let(:data) { {custom: :data} }
@@ -90,5 +91,39 @@ describe SmokeDetector::Providers::Rollbar do
         controller.alert_smoke_detector(err)
       end
     end
+  end
+
+  describe "#client_settings" do
+    let(:settings) { { environment: ::Rails.env } }
+    let(:client_api_key) { "client_api_key"  }
+    let(:hostWhiteList)  { %w(google.com yahoo.com aol.com) }
+    let(:ignoredMessages) { ["Hey, ignore this", "Ignore this too"] }
+    let(:personData) { { email: "yo@gabbagabba.limosine" } }
+
+    let(:client_settings) do
+      {
+        api_key: client_api_key,
+        hostWhiteList: hostWhiteList,
+        ignoredMessages: ignoredMessages,
+        payload: {
+          person: personData
+        }
+      }
+    end
+
+    subject { provider.client_settings }
+
+    it "merges default settings" do
+      expect(subject).to include(:payload)
+      expect(subject[:payload]).to include(:environment)
+      expect(subject[:payload][:environment]).to eq(::Rails.env)
+    end
+
+    it "includes configured client settings" do
+      expect(subject[:api_key]).to eq(client_api_key)
+      expect(subject[:hostWhiteList]).to eq(hostWhiteList)
+      expect(subject[:payload][:person]).to eq(personData)
+    end
+
   end
 end
