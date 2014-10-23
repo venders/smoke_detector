@@ -115,6 +115,4 @@ describe SmokeDetector::JavaScriptMonitors do
       it_behaves_like "a properly set ignoredMessages"
     end
   end
-
-
 end
