@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'nokogiri'
+require 'jshintrb'
 
 describe SmokeDetector::JavaScriptMonitors do
 
@@ -10,6 +11,15 @@ describe SmokeDetector::JavaScriptMonitors do
     #       instance.
     ObjectSpace.each_object(SmokeDetector::JavaScriptMonitors) do |jsm|
       jsm.instance_variable_set(:@monitoring_code, nil)
+    end
+  end
+
+  shared_examples "a page with a valid rollbar json config" do
+    it "has no errors" do
+      get '/widgets'
+      content = Nokogiri::HTML(response.body).css('head script:contains("_rollbarConfig")').children.first.to_s
+      errors  = Jshintrb.lint(content)
+      expect(errors).to be_empty
     end
   end
 
@@ -29,6 +39,8 @@ describe SmokeDetector::JavaScriptMonitors do
       position        =  /"accessToken":"client_key"/
       expect(position).to_not be_nil
     end
+
+    it_behaves_like "a page with a valid rollbar json config"
   end
 
   context 'without a Rollbar client API key configured' do
@@ -40,6 +52,8 @@ describe SmokeDetector::JavaScriptMonitors do
       get '/widgets'
       expect(Nokogiri::HTML(response.body).css('head script:contains("_rollbarConfig")')).to be_empty
     end
+
+    it_behaves_like "a page with a valid rollbar json config"
   end
 
   context 'hostWhitelist' do
@@ -60,6 +74,8 @@ describe SmokeDetector::JavaScriptMonitors do
         position = /\"hostWhiteList\":#{Regexp.escape(host_whitelist.to_json)}/i =~ script_content
         expect(position).to_not be_nil
       end
+
+      it_behaves_like "a page with a valid rollbar json config"
     end
 
     context 'with hostWhitelist Rollbar client setting configured' do
@@ -85,6 +101,8 @@ describe SmokeDetector::JavaScriptMonitors do
         position = /\"ignoredMessages\":#{Regexp.escape(ignored_messages.to_json)}/i =~ script_content
         expect(position).to_not be_nil
       end
+
+      it_behaves_like "a page with a valid rollbar json config"
     end
 
     context "with ignoredMessages Rollbar client setting configured" do
