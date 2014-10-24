@@ -57,8 +57,10 @@ describe SmokeDetector::JavaScriptMonitors do
   end
 
   context 'hostWhitelist' do
+    let(:client_settings) { { api_key: 'client_key', hostWhiteList: host_whitelist } }
+
     before do
-      SmokeDetector.register_provider(:rollbar, 'key', { api_key: 'client_key', hostWhiteList: host_whitelist })
+      SmokeDetector.register_provider(:rollbar, 'key', client_settings)
     end
 
     shared_examples "a properly set hostWhiteList" do
@@ -81,6 +83,11 @@ describe SmokeDetector::JavaScriptMonitors do
     context 'with hostWhitelist Rollbar client setting configured' do
       let(:host_whitelist) { ["example.com", "facebook.com"] }
       it_behaves_like "a properly set hostWhiteList"
+
+      context 'with snake-case setting' do
+        let(:client_settings) { { api_key: 'client_key', host_whitelist: host_whitelist } }
+        it_behaves_like "a properly set hostWhiteList"
+      end
     end
 
     context 'with hostWhitelist Rollbar client setting unset' do
@@ -108,6 +115,11 @@ describe SmokeDetector::JavaScriptMonitors do
     context "with ignoredMessages Rollbar client setting configured" do
       let(:ignored_messages) { ["Error: Llamas are actually pretty cool.", "Exception: The jerkstore called, and they ran out of you."] }
       it_behaves_like "a properly set ignoredMessages"
+
+      context 'with snake-case setting' do
+        let(:client_settings) { { api_key: 'client_key', ignored_messages: ignored_messages } }
+        it_behaves_like "a properly set ignoredMessages"
+      end
     end
 
     context 'with ignoredMessages Rollbar client setting unset' do
