@@ -66,8 +66,10 @@ by Rollbar.js unless you do some additional filtering.
 
 The following config demonstrates how to filter JavaScript exceptions by
 the exception's message, and also, by the offending exception's source host url.
-You can choose to filter by `host_whitelist` or `ignored_messages` or both. It's
-up to you.
+You can choose to filter by `hostWhitelist` or `ignoredMessages` or both. It's
+up to you. Note the lower, camel-case of the settings. They should match
+[rollbar.js's](https://github.com/rollbar/rollbar.js) documentation in order to
+be passed-along to the rollbar.js framework appropriately.
 
 ```
 config.providers = [
@@ -76,13 +78,15 @@ config.providers = [
     api_key: ENV['ROLLBAR_KEY'],
     client_settings: {
       api_key: ENV['ROLLBAR_CLIENT_KEY'],
-      ignored_messages: ["Error: Clippy.bmp not found. The end is nigh."],
-      host_whitelist: ["yourdomain.com", "cdn.anotherdomain.com"]
+      ignoredMessages: ["Error: Clippy.bmp not found. The end is nigh."],
+      hostWhitelist: ["yourdomain.com", "cdn.anotherdomain.com"]
     }
   }
 ]
 ```
 
+All key-value pairs under `client_settings` will be passed along to the javascript
+client tracking library (in this case, Rollbar).
 
 TODO
 ----
