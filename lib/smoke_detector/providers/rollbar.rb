@@ -67,11 +67,11 @@ module SmokeDetector::Providers
     private
     def migrate_old_client_setting_syntax(settings)
       return unless settings.present?
-      whitelist = settings.delete(:host_whitelist)
-      ignored   = settings.delete(:ignored_messages)
+      whitelist    = settings.delete(:host_whitelist)
+      ignored_msgs = settings.delete(:ignored_messages)
 
       settings[:hostWhiteList]   = whitelist if whitelist
-      settings[:ignoredMessages] = ignored   if ignored
+      settings[:ignoredMessages] = ignored_msgs if ignored_msgs
       settings
     end
   end
