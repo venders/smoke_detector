@@ -90,8 +90,11 @@ client tracking library (in this case, Rollbar).
 
 ### Rollbar.js Person data
 
-By default, smoke_detector will pass `window.currentUser` to Rollbar.js as the "person data". If `window.currentUser` is null, then it will default to sending `{ id: null, email: null, username: null }`. Be sure your `window.currentUser` has those key and values if you want them to be shown on [rollbar.com](http://rollbar.com).
+By default, there is no person data sent to rollbar. In order to do that, you will have to override the rollbar person data config:
 
+```javascript
+window._rollbarConfig.payload.person = { id: 1, email: 'someemail@example.com', username: 'someuser' }
+```
 
 TODO
 ----
