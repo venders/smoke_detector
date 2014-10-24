@@ -88,6 +88,11 @@ config.providers = [
 All key-value pairs under `client_settings` will be passed along to the javascript
 client tracking library (in this case, Rollbar).
 
+### Rollbar.js Person data
+
+By default, smoke_detector will pass `window.currentUser` to Rollbar.js as the "person data". If `window.currentUser` is null, then it will default to sending `{ id: null, email: null, username: null }`. Be sure your `window.currentUser` has those key and values if you want them to be shown on [rollbar.com](http://rollbar.com).
+
+
 TODO
 ----
 1. Add support for capistrano deploy announcements
