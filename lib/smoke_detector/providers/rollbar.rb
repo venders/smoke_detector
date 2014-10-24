@@ -18,6 +18,7 @@ module SmokeDetector::Providers
       end
 
       @client_settings = default_client_settings
+      migrate_old_client_setting_syntax(client_settings)
       @client_settings.deep_merge!(client_settings) if client_settings.present?
     end
 
@@ -63,6 +64,17 @@ module SmokeDetector::Providers
 
         ::Rollbar.report_exception(exception, rollbar_request_data, rollbar_person_data)
       end
+    end
+
+    private
+    def migrate_old_client_setting_syntax(settings)
+      return unless settings.present?
+      whitelist = settings.delete(:host_whitelist)
+      ignored   = settings.delete(:ignored_messages)
+
+      settings[:hostWhiteList]   = whitelist
+      settings[:ignoredMessages] = ignored
+      settings
     end
   end
 end
