@@ -72,8 +72,8 @@ module SmokeDetector::Providers
       whitelist = settings.delete(:host_whitelist)
       ignored   = settings.delete(:ignored_messages)
 
-      settings[:hostWhiteList]   = whitelist
-      settings[:ignoredMessages] = ignored
+      settings[:hostWhiteList]   = whitelist if whitelist
+      settings[:ignoredMessages] = ignored   if ignored
       settings
     end
   end
