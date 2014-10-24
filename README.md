@@ -67,7 +67,7 @@ by Rollbar.js unless you do some additional filtering.
 The following config demonstrates how to filter JavaScript exceptions by
 the exception's message, and also, by the offending exception's source host url.
 You can choose to filter by `hostWhitelist` or `ignoredMessages` or both. It's
-up to you. Note the lower, camel-case of the settings. They should match
+up to you. Note the lower, camel-case of the setting keys. They should match
 [rollbar.js's](https://github.com/rollbar/rollbar.js) documentation in order to
 be passed-along to the rollbar.js framework appropriately.
 
