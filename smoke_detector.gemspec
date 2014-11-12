@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails",       "~> 3.2.12"
   s.add_dependency "airbrake",    "~> 3.1.8"
-  s.add_dependency "rollbar",     "~> 1.0.0"
+  s.add_dependency "rollbar",     "~> 1.2.7"
 
   s.add_development_dependency "jshintrb"
   s.add_development_dependency "nokogiri"

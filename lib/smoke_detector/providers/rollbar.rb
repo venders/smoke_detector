@@ -27,12 +27,12 @@ module SmokeDetector::Providers
         exception.message << data.to_s
       end
 
-      ::Rollbar.report_exception(exception)
+      ::Rollbar.error(exception)
     end
 
     def message(message, options = {})
       level = options.delete(:level) || 'info'
-      ::Rollbar.report_message(message, level, options)
+      ::Rollbar.log(level, message, options)
     end
 
     def default_client_settings
@@ -60,7 +60,7 @@ module SmokeDetector::Providers
           exception.message << data.to_s
         end
 
-        ::Rollbar.report_exception(exception, rollbar_request_data, rollbar_person_data)
+        ::Rollbar.error(exception, rollbar_request_data, rollbar_person_data)
       end
     end
 
