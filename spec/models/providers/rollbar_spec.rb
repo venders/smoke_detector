@@ -28,7 +28,7 @@ describe SmokeDetector::Providers::Rollbar do
 
   describe '#alert' do
     it 'reports the exception to Rollbar' do
-      Rollbar.should_receive(:report_exception).with(err)
+      Rollbar.should_receive(:error).with(err)
       provider.alert(err)
     end
 
@@ -47,7 +47,7 @@ describe SmokeDetector::Providers::Rollbar do
     let(:options) { {} }
 
     it 'reports the message to Rollbar' do
-      Rollbar.should_receive(:report_message).with(message, level, options)
+      Rollbar.should_receive(:log).with(level, message, options)
       provider.message(message)
     end
 
@@ -55,7 +55,7 @@ describe SmokeDetector::Providers::Rollbar do
       let(:options) { {custom: :data} }
 
       it 'passes the options along as the data param' do
-        Rollbar.should_receive(:report_message).with(message, level, options)
+        Rollbar.should_receive(:log).with(level, message, options)
         provider.message(message, options)
       end
 
@@ -64,12 +64,12 @@ describe SmokeDetector::Providers::Rollbar do
         let(:options) { {custom: :data, level: level} }
 
         it 'sets the message level' do
-          Rollbar.should_receive(:report_message).with(message, level, options)
+          Rollbar.should_receive(:log).with(level, message, options)
           provider.message(message, options)
         end
 
         it 'does not include the level in the data param' do
-          Rollbar.should_receive(:report_message).with(message, level, options)
+          Rollbar.should_receive(:log).with(level, message, options)
           provider.message(message, options)
         end
       end
@@ -85,7 +85,7 @@ describe SmokeDetector::Providers::Rollbar do
 
     describe '#alert_smoke_detector' do
       it 'notifies Rollbar of the exception' do
-        Rollbar.should_receive(:report_exception)
+        Rollbar.should_receive(:error)
         controller.should_receive(:rollbar_request_data)
         controller.should_receive(:rollbar_person_data)
         controller.alert_smoke_detector(err)
