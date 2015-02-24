@@ -32,7 +32,10 @@ end
 shared_examples_for 'Rollbar integrated error handler' do
   context 'uncaught in a controller' do
     it 'reports the error to Rollbar' do
-      Rollbar.should_receive(:log).with('error', instance_of(RuntimeError)).and_return({})
+      Rollbar.should_receive(:log) do |level, args|
+        expect(level).to eq('error')
+        expect(args.first).to be_a(RuntimeError)
+      end.and_return({})
       expect { get '/widgets/bubble_up' }.to raise_error(RuntimeError, 'bubble_up')
     end
   end
@@ -46,7 +49,10 @@ shared_examples_for 'Rollbar integrated error handler' do
 
   context 'uncaught in a model' do
     it 'reports the error to Rollbar' do
-      Rollbar.should_receive(:log).with('error', instance_of(RuntimeError)).and_return({})
+      Rollbar.should_receive(:log) do |level, args|
+        expect(level).to eq('error')
+        expect(args.first).to be_a(RuntimeError)
+      end.and_return({})
       expect { get '/widgets/deep_bubble_up' }.to raise_error(RuntimeError, 'deep_bubble_up')
     end
   end
