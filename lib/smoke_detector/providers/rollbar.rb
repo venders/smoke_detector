@@ -8,7 +8,7 @@ module SmokeDetector::Providers
       super
       ::Rollbar.configure do |c|
         c.environment = ::Rails.env # Rollbar sets this to 'unspecified' by default
-
+        c.enabled = settings.fetch(:enabled, true)
         c.access_token = api_key
         apply_configuration_settings(c, settings)
 

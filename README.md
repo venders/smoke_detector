@@ -76,6 +76,7 @@ config.providers = [
   {
     provider: :rollbar,
     api_key: ENV['ROLLBAR_KEY'],
+    enabled: ['production', 'staging'].include?(Rails.env)
     client_settings: {
       api_key: ENV['ROLLBAR_CLIENT_KEY'],
       ignoredMessages: ["Error: Clippy.bmp not found. The end is nigh."],
