@@ -1,4 +1,6 @@
 require 'json'
+require 'rollbar'
+
 module SmokeDetector::Providers
 
   class Rollbar < Provider
