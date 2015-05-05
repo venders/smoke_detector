@@ -5,9 +5,8 @@ bundler_args: --no-deployment
 before_install: mkdir -p spec/dummy/db
 
 rvm:
-  - 1.9.3
-  - 1.9.2
   - 2.0.0
+  - 2.1.6
 
 notifications:
   email: false
