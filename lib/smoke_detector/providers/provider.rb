@@ -33,8 +33,13 @@ module SmokeDetector::Providers
 
     def apply_configuration_settings(configuration, settings)
       settings.each do |setting, value|
-        raise(ArgumentError, "#{setting} is not a valid #{self.class.name} configuration setting") unless configuration.respond_to?("#{setting}=")
-        configuration.send("#{setting}=", value)
+        if configuration.respond_to?("#{setting}=")
+          configuration.send("#{setting}=", value)
+        elsif configuration.respond_to?(setting.to_sym) && value
+          configuration.send(setting.to_sym)
+        else
+          raise(ArgumentError, "#{setting} is not a valid #{self.class.name} configuration setting")
+        end
       end
     end
   end
